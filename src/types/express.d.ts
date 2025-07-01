@@ -1,0 +1,8 @@
+import { userPayload } from '@src/interfaces/users';
+import { JwtPayload } from 'jsonwebtoken';
+
+declare module 'express' {
+  export interface Request {
+    user?:JwtPayload; 
+  }
+}
