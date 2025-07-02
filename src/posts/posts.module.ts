@@ -1,14 +1,14 @@
-import { jwtConstants } from '@src/constants';
-import { AuthService } from '@auth/auth.service';
-import { AuthController } from '@auth/auth.controller';
-import { PrismaService } from '@src/prisma/prisma.service';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { PostsService } from '@posts/posts.service';
+import { AuthMiddleware } from '@src/common/middlewares/auth.middleware';
 import { JwtModule } from '@nestjs/jwt';
-import { Module } from '@nestjs/common';
 import { PrismaModule } from '@src/prisma/prisma.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule,
+    PrismaModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -17,9 +17,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         signOptions: { expiresIn: '1h' },
       }),
     }),
-    PrismaModule,
   ],
-  providers: [AuthService, PrismaService],
-  controllers: [AuthController],
+
+  providers: [PostsService],
+  exports: [PostsService],
 })
-export class AuthModule {}
+export class PostsModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes('posts');
+  }
+}

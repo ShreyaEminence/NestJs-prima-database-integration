@@ -5,7 +5,7 @@ import {
   Patch,
   Req,
 } from '@nestjs/common';
-import { UserService } from './user.service';
+import { UserService } from '@user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 

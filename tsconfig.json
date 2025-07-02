@@ -22,11 +22,14 @@
       "@src/*": [
         "src/*"
       ],
-      "@users/*": [
-        "src/users/*"
+      "@user/*": [
+        "src/user/*"
       ],
       "@auth/*": [
         "src/auth/*"
+      ],
+      "@posts/*": [
+        "src/posts/*"
       ],
     },
   }

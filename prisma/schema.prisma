@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Users {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   email     String   @unique
@@ -21,4 +21,13 @@ model User {
   age       Int?
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
+  posts     Posts[]
+}
+
+model Posts{
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  title  String
+  content String
+  userId String  @db.ObjectId
+  user   Users    @relation(fields: [userId], references: [id])
 }

@@ -7,6 +7,8 @@ import { AuthModule } from '@src/auth/auth.module';
 import { UserModule } from '@src/user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PostsController } from '@posts/posts.controller';
+import { PostsModule } from '@posts/posts.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -26,8 +28,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     AuthModule,
     PrismaModule,
     UserModule,
+    PostsModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, PostsController],
   providers: [AppService, PrismaService],
 })
 export class AppModule {}

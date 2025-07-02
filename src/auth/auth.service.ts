@@ -16,7 +16,7 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<userPayload | null> {
-    const existingUser = await this.prisma.user.findUnique({
+    const existingUser = await this.prisma.users.findUnique({
       where: { email: email },
     });
     if (!existingUser) {
@@ -35,12 +35,13 @@ export class AuthService {
   async login(user: userPayload) {
     const payload = { email: user.email, id: user.id, name: user.name };
     return {
+      message: 'Login Successfully!',
       access_token: this.jwtService.sign(payload),
     };
   }
 
   async signup(dto: SignupDto) {
-    const existingUser = await this.prisma.user.findUnique({
+    const existingUser = await this.prisma.users.findUnique({
       where: { email: dto.email },
     });
 
@@ -50,15 +51,18 @@ export class AuthService {
 
     const hashedPassword = await bcrypt.hash(dto.password, 10);
 
-    const user = await this.prisma.user.create({
+    const user = await this.prisma.users.create({
       data: {
         name: dto.name,
         email: dto.email,
         password: hashedPassword,
       },
     });
+    const payload = { email: user.email, id: user.id, name: user.name };
+
+    const access_token = this.jwtService.sign(payload);
 
     const { password, ...rest } = user;
-    return rest;
+    return { rest, access_token };
   }
 }

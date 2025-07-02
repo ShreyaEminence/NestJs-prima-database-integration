@@ -7,7 +7,7 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
   async userById(userId: string) {
     try {
-      const user = await this.prisma.user.findUnique({
+      const user = await this.prisma.users.findUnique({
         where: { id: userId },
       });
 
@@ -24,7 +24,7 @@ export class UserService {
 
   async updateUserDetails(userId: string, updatedData: updateData) {
     try {
-      const updateuser = await this.prisma.user.update({
+      const updateuser = await this.prisma.users.update({
         where: { id: userId },
         data: { name: updatedData.name },
         select: {
