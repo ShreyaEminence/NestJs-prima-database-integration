@@ -1,0 +1,29 @@
+Middleware Vs Guard 
+- Middleware concept of Express
+- Guard feature of Nest Js 
+- Middleware have no use of decorators 
+
+LifeCycle Events
+(Special Methods,LifeCycle Methods,NestJs hooks)
+- Automatically called at diff stages of a module/service/component's life.
+- used to perform actions during creation or destruction.
+Why useful?
+- helps to run code when app/moule/servivce is initialized.
+- useful for db connections,logging, resource cleanup,etc.
+
+onModuleInit() = called when module is initialized.
+onModuleDestroy() = called when module is destroyed.
+afterModuleInit() = called after all modules are initialized.
+onApplicationBootstrap() = when app is fully bootstrapped.
+onApplicationShutdown() = called when app is shutdown.
+ 
+Data Relationship in MongoDB
+--Two ways (data Modeling)--
+1. Embedding. -storing data in document (less prefered - only used for small data )
+2. Referencing. Referencingthrough _id store ObjectId in the document and later on populate that data 
+(Most prefered) 
+--3 types - Relationship types--
+1.One to One Relationship. (user to profile,employee to employee details)
+2.One to Many Relationship.(teacher to student)
+3.Many to Many Relationship.(many courses to many students)
+4. Many to One Relationship(Many Posts to one user)
